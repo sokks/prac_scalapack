@@ -4,19 +4,28 @@
 
 
 class matrix_d {
-    int N, M;
+    int N;
     double *data;
 
 public:
-    matrix_d(int N = 0, int M = 0);
-    matrix_d(matrix_d&);
+    matrix_d(int N = 0);
+    matrix_d(const matrix_d&);
 
     ~matrix_d();
 
-    matrix_d& operator=(matrix_d&);
+    matrix_d& operator=(const matrix_d&);
 
     void fill(complex_d (*filler)(int, int));
-    void write_to(const char *filename);
+    void fill_diag(complex_d (*diag_filler)(int));
+
     void read_from(const char *filename);
+    void read_from_txt(const char *filename);
+    void read_diag_from(const char *filename);
+    void read_diag_from_txt(const char *filename);
+
+    void write_to(const char *filename);
+    void write_diag_to(const char *filename);
+
     void print();
+    void print_diag();
 };

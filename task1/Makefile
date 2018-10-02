@@ -2,7 +2,7 @@ test: test_mwriter
 
 
 test_mwriter: bin/mwriter_test
-	./bin/mwriter_test 5 data/testm.in
+	./bin/mwriter_test data/testm.txt data/testdm.txt data/testm.dat data/testdm.dat
 
 lib/mwriter.a: build/mwriter.o
 	mkdir -p lib
