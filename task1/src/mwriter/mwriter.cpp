@@ -1,6 +1,5 @@
 #include "mwriter.h"
 
-
 matrix_d::matrix_d(int N, int M)
 {
     this->N = N;
@@ -21,6 +20,22 @@ matrix_d::matrix_d(matrix_d &m)
 {
     this->N = m.N;
     this->M = m.M;
+    this->data = nullptr;
+
+    if (m.data != nullptr)
+    {
+        this->data = new double[this->N * this->M * 2];
+        for (int i = 0; i < this->N * this->M * 2; i++)
+        {
+            this->data[i] = m.data[i];
+        }
+    }
+}
+
+matrix_d &matrix_d::operator=(matrix_d &m)
+{
+    this->N = m.N;
+    this->M = m.M;
 
     if (this->data != nullptr)
     {
@@ -36,13 +51,15 @@ matrix_d::matrix_d(matrix_d &m)
             this->data[i] = m.data[i];
         }
     }
+
+    return *this;
 }
 
 matrix_d::~matrix_d()
 {
     if (data != nullptr)
     {
-        free(data);
+        delete[] data;
     }
 }
 
@@ -77,7 +94,7 @@ void matrix_d::read_from(const char *filename)
     {
         delete[] this->data;
     }
-    this->data = new double[this->N * this->M];
+    this->data = new double[this->N * this->M * 2];
     in.read((char *)(this->data), this->N * this->M * 2 * sizeof(double));
     in.close();
 }
@@ -85,13 +102,12 @@ void matrix_d::read_from(const char *filename)
 void matrix_d::print()
 {
     std::cout.setf(std::ios::fixed);
-    std::cout.precision(4);
     std::cout << this->N << " " << this->M << std::endl;
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < this->N; i++)
     {
-        for (int j = 0; j < M; j++)
+        for (int j = 0; j < this->M; j++)
         {
-            printf("( %3.3f, %3.3f) ", this->data[(i * M + j) * 2], this->data[(i * M + j) * 2 + 1]);
+            printf("( %3.4f, %3.4f) ", this->data[(i * this->M + j) * 2], this->data[(i * this->M + j) * 2 + 1]);
         }
         std::cout << std::endl;
     }

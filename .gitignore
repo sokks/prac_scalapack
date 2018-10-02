@@ -1,2 +1,5 @@
 1example*
 .DS_Store
+*/bin/*
+*/lib/*
+*/build/*
