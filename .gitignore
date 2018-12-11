@@ -3,4 +3,11 @@
 */bin/*
 */lib/*
 */build/*
+*/doc/*
 *.log
+src/matrix/_*
+*~
+.tmp*
+examples
+*\.tar\.*
+matrix_library*
