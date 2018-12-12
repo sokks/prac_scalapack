@@ -21,7 +21,7 @@ test_mwriter: bin/mwriter_test
 	./bin/mwriter_test data/testm.txt data/testdm.txt data/testm.dat data/testdm.dat
 
 test_smatrix: bin/test
-	mpiexec -np 4 ./bin/test 3 ./lib/R 0.5 ./lib/H 1
+	mpiexec -np 1 ./bin/test 3 ./data/R 0.5 ./data/H 10
 
 lib/mwriter.a: build/mwriter.o
 	mkdir -p lib
