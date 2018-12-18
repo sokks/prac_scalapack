@@ -62,54 +62,72 @@ SType * diagonal_conversion(SReal *W, int SSize, double deltat, bool isRoot) {
 	SType *W1 = new SType[SSize];
 
 	for (int j = 0; j < SSize; j++) {
-			W1[j] = exp(W[j] * complex<SReal>(0,1) * deltat);
+			W1[j] = exp(-W[j] * complex<SReal>(0,1) * deltat);
+			// W1[j] = W[j];
 		}
 	return W1;
 }
 
 
 int main(int argc, char **argv) {
+	
 	MPI_Init(&argc, &argv);
 
+	int SSize;
+
+	/*
+	 * Чтение гамильтониана и вычисление UdT
+	 */
+
+	char *file_H = argv[4];
+	double deltat = atof(argv[3]);
+
 	bool isRoot = SMatrix::init(0, 0, 2);
+	int count, *buf;
+	
+
 	MPI_Status status;
 	MPI_Offset filesize;
 	MPI_File thefile, wrfile;
-    MPI_File_open(MPI_COMM_WORLD, argv[4], MPI_MODE_RDONLY, MPI_INFO_NULL, &thefile);
     
- 
-	/*
-	 * Чтение гамильтониана и вычисление
-	 */
-	int count, *buf;
-	buf = (int *) malloc (2 * sizeof(int));
+	MPI_File_open(MPI_COMM_WORLD, file_H, MPI_MODE_RDONLY, MPI_INFO_NULL, &thefile);
 	MPI_File_set_view(thefile, 0, MPI_INT, MPI_INT, "native", MPI_INFO_NULL);
+	
+	// read matrix sizes
+	buf = (int *) malloc (2 * sizeof(int));
+	SSize = buf[0]; // считаем матрицу квадратной
 	MPI_File_read(thefile, buf, 2, MPI_INT, &status);
+	// create matrix and read separately
+	SMatrix x(buf[0], buf[1]);
+	x.readf(thefile);
+
 	/*SType data[] = {
 		0, 2, -8,
 		2, 0, 10,
 		-8, 10, 5
 		};*/
-	SMatrix x(buf[0], buf[1]);
 	//x.set(data);
-	x.readf(thefile);
-	//cout << x;
-	//printEIGENVAL(x, isRoot);
+	
 
-	int SSize = buf[0];
-	SMatrix *Z, *T = new SMatrix(SSize, SSize), *M = new SMatrix(SSize, SSize);
-	SReal *W = x.calculateEIGENVAL(&SSize, &Z);
-	double deltat = atof(argv[3]);
+	SMatrix *A,                                 // здесь будут собственные векторы по столбцам
+			*D   = new SMatrix(SSize, SSize),   // здесь будет exp(-i * dT * eigen(H))
+			*U   = new SMatrix(SSize, SSize),   // здесб будет UdT
+			*tmp = new SMatrix(SSize, SSize);   // промежуточный результат
+
+	SReal *W = x.calculateEIGENVAL(&SSize, &A);
 	SType *W1 = diagonal_conversion(W, SSize, deltat, isRoot);
-	SMatrix K(SSize,SSize);
-	K=*Z;
-	(K).DiagToMat(&SSize, W1);
-	//cout << K;
-	(K).mul((char *) "N", Z, &T);
-	//cout<<*T;
-	(*Z).mul((char *) "C", T, &T);
-	//cout<<*T; // U delta t
-	//cout<< *T; 
+	*D = *A;
+	(*D).DiagToMat(&SSize, W1);
+	cout << *D << endl << endl; 
+	cout << *A << endl << endl;
+
+	(*A).mul((char *) "N", (char *) "N", D, &tmp);
+	cout<< *tmp << endl << endl;
+
+	SMatrix *UdT = new SMatrix(SSize, SSize);
+	(*tmp).mul((char *) "N", (char *) "C", A, &UdT);
+	cout<< *UdT << endl << endl;
+	
 	MPI_File_close(&thefile);
 	
 	
@@ -126,12 +144,12 @@ int main(int argc, char **argv) {
 		MPI_File_set_view(thefile, 0, MPI_INT, MPI_INT, "native", MPI_INFO_NULL);
 		if (buf[1] != 0){
 			x.readf(thefile);
-			*Z = x;
+			*A = x;
 		}
 		else {
 			SMatrix v(buf[0], 1);
 			v.readf(thefile);
-			v.mul((char *) "C", &v, &Z);
+			v.mul((char *) "C", (char *) "N", &v, &A);
 		}
 		
 		
@@ -141,20 +159,23 @@ int main(int argc, char **argv) {
 	else {
 		x.fill(0);
 		x.setij(atoi(argv[2])-1, atoi(argv[2])-1);
-		*Z = x;
+		*A = x;
 	}
+	
+	// now A contains Ro
+	cout << *A << endl << endl;
 	int n = atoi(argv[5]);
 	for (int j = 0; j < n; j++){
-		(*Z).mul((char *) "N", T, &Z);
-		(*T).mul((char *) "C", Z, &Z);
-		(*Z).wrbuf(wrbuf);
+		(*UdT).mul((char *) "C", (char *) "N", A, &tmp);
+		(*tmp).mul((char *) "N", (char *) "N", UdT, &A);
+		(*A).wrbuf(wrbuf);
 		MPI_Reduce(wrbuf, wrbuf0, SSize, MPI_DOUBLE_COMPLEX, MPI_SUM, 0, MPI_COMM_WORLD);
 		if (isRoot) {
 			for (int i = 0; i < SSize; i++) cout << wrbuf0[i];
 			cout<<'\n';
 		}
 	}
-	delete T, K, M;
+	delete A, D, UdT, tmp;
 
 	SMatrix::exit();
 	return 0;

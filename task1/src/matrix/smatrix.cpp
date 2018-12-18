@@ -222,6 +222,12 @@ int* SMatrix::getDesc(int rows, int cols, int procRows) {
 	int *desc = new int[9];
 	int itemp = max(1, procRows), izero = 0, info;
 	descinit_(desc, &rows, &cols, &blockSize, &blockSize, &izero, &izero, &icon, &itemp, &info);
+	if (info != 0) {
+		std::cout << "ERROR: descinit_ RETURN CODE: " << info << std::endl;
+	} 
+	// else {
+	// 	std::cout << "OK " << info << std::endl;
+	// }
 	return desc;
 }
 
@@ -266,29 +272,49 @@ void SMatrix::setij(int i, int j) {
     return;
 }
 
-void SMatrix::mul(char *ch, SMatrix *B, SMatrix **C) {
+void SMatrix::mul(char *ch, char *ch_B, SMatrix *B, SMatrix **C) {
 	SMatrix	*c = new SMatrix(*this, nRows, B->nCols);
-        int	*desc = getDesc(),
-		*descB = B->getDesc(),
-		*descC = c->getDesc();
-	double	alpha = 1,
-		beta = 0;
-	int 	ione = 1;
+    
+	int	*desc  = getDesc();
+	int *descB = B->getDesc();
+	int	*descC = c->getDesc();
+
+	char *transa = ch;
+	char *transb = ch_B;
+	
+	int m = nRows;
+	int n = nCols;
+	int k = B->nCols;
+
+	double alpha = 1;
+	double beta  = 0;
+	int    ione  = 1;
+
 
 	//cout<<endl<<nRows<<(B)->nCols<<nCols;
 	//SType *dataCopy = new SType[myProcSize];
 	//memcpy(dataCopy, data, myProcSize * sizeof(SType));
 	barrier();
 #ifdef USE_COMPLEX
-	pzgemm_ (ch, (char *) "N", &nRows, &((B)->nCols), &nCols, &alpha, data, &ione, &ione,
-		desc, B->data, &ione, &ione, descB, &beta, c->data, &ione, &ione, descC);
+/*
+	void pzgemm_ (char *transa, char *transb, int *m, int *n, int *k, 
+			double *alpha, 	complex_d *a, int *ia, int *ja, int *desca, 
+							complex_d *b, int *ib, int *jb, int *descb, double *beta, 
+							complex_d *c, int *ic, int *jc, int *descc);
+*/
+	pzgemm_(transa, transb, &m, &n, &k, 
+			&alpha, 
+			data,    &ione, &ione, desc, 
+			B->data, &ione, &ione, descB, 
+			&beta, 
+			c->data, &ione, &ione, descC);
 #else
 	pdgemm_ ((char *) "N", (char *) "N", &nRows, &(*B)->nCols, &nCols, &alpha, data, &ione, &ione,
 		desc, (*B)->data, &ione, &ione, descB, &beta, (*C)->data, &ione, &ione, descC);
 #endif
 	//delete[] dataCopy;
 	delete[] desc, descB, descC;
-	//cout<<*c<<endl;
+	// cout<<*c<<endl;
 	if (C != NULL) {
 		*C = c;
 	} else {

@@ -1,6 +1,9 @@
 #ifndef SMATRIX_H
 #define SMATRIX_H
 
+#define USE_DOUBLE 1
+#define USE_COMPLEX 1
+
 #include "mpi.h"
 #include <ostream>
 #include <complex>
@@ -251,7 +254,7 @@ public:
 	 */
 	SReal* calculateEIGENVAL(int *SSize, SMatrix **Z = NULL);
 	void transpconj(bool isRoot);
-	void mul(char *ch, SMatrix *B, SMatrix **C);
+	void mul(char *ch, char *ch_B, SMatrix *B, SMatrix **C);
 	void DiagToMat(int *SSize, SType *D);
 	void readf(MPI_File thefile);
 	void wrbuf(SType* buf);

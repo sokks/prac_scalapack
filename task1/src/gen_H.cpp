@@ -41,7 +41,19 @@ void gen_full(int N) {
 }
 
 complex_d full_filler(int i, int j) {
-    return full[i*N+j];
+    // return full[i*N+j];
+    // if ( (abs(i-j) == 1) && (i>0) && (j>0) ) {
+    //     return 1;
+    // } else {
+    //     return 0;
+    // }
+    if ((i == 2) && (j == 3)) {
+        return 1;
+    }
+    if ((i == 3) && (j == 2)) {
+        return 1;
+    }
+    return 0;
 }
 
 int main(int argc, char **argv)
@@ -54,11 +66,11 @@ int main(int argc, char **argv)
     char *filename = argv[1];
     N = std::atoi(argv[2]);
 
-    if (argc > 3) {
+    // if (argc > 3) {
         seed = std::atoi(argv[3]);
-    } else {
-        seed = std::time(0);
-    }
+    // } else {
+        // seed = std::time(0);
+    // }
 
     gen_full(N);
     matrix_d m_full(N);

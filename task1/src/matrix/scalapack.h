@@ -26,8 +26,17 @@ extern "C" {
 	void pzheevd_(char *jobz, char *uplo, int *n, complex_d *a, int *ia, int *ja, int *desca, double *w, complex_d *z, int *iz, int *jz, int *descz, complex_d *work, int *lwork, double *rwork, int *lrwork, int *iwork, int *liwork, int *info);
 	void pztranc_ (int *m, int *n, double *alpha, double *a, int *ia, int *ja, int *desca, double *beta, double *c, int *ic, int *jc,
 int *descc);
+
+/*
+ * sub( C ) := alpha*op( sub( A ) )*op( sub( B ) ) + beta*sub( C )
+ */
 	void pdgemm_ (char *transa, char *transb, int *m, int *n, int *k, double *alpha, double *a, int *ia, int *ja, int *desca, double *b, int *ib, int *jb, int *descb, double *beta, double *c, int *ic, int *jc, int *descc);
-	void pzgemm_ (char *transa, char *transb, int *m, int *n, int *k, double *alpha, complex_d *a, int *ia, int *ja, int *desca, complex_d *b, int *ib, int *jb, int *descb, double *beta, complex_d *c, int *ic, int *jc, int *descc);
+	void pzgemm_ (	char *transa, char *transb, int *m, int *n, int *k, 
+					double *alpha, 	
+					complex_d *a, int *ia, int *ja, int *desca, 
+					complex_d *b, int *ib, int *jb, int *descb, 
+					double *beta, 
+					complex_d *c, int *ic, int *jc, int *descc);
 
 }
 
