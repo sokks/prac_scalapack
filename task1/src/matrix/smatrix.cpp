@@ -87,7 +87,10 @@ void SMatrix::create(int icon) {
 	data = new SType[myProcSize];
 }
 void SMatrix::destroy() {
-	delete[] data;
+	if (data != NULL) {
+		delete[] data;
+		data = NULL;
+	}
 }
 
 void SMatrix::setBlock(int procRow, int procCol, const SType *data, int size, int offset) {
@@ -158,6 +161,7 @@ SMatrix& SMatrix::operator =(const SMatrix& matrix) {
 	nProcCols = matrix.nProcCols;
 	create(matrix.icon);
 	memcpy(data, matrix.data, myProcSize * sizeof(SType));
+	return *this;
 }
 bool SMatrix::operator ==(const SMatrix& matrix) {
 	unsigned char result, equals = (memcmp(data, matrix.data, myProcSize * sizeof(SType)) == 0);

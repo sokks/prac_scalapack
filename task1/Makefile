@@ -20,7 +20,7 @@ test: test_smatrix
 
 
 test_smatrix: bin/test
-	mpiexec -np 1 ./bin/test 8 1 1 ./data/H1 10
+	mpiexec -np 1 ./bin/test 3 ./data/R 0.5 ./data/H 10
 
 
 lib/smatrix.a: build/smatrix.o Makefile
