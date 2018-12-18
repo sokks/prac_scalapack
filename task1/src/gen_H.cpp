@@ -26,15 +26,11 @@ void gen_full(int N) {
     std::srand(seed);
     double sum = 0;
     for (int i = 0; i < N; i++) {
-        full[i*N+i] = complex_d( double(std::rand()), 0);
+        full[i*N+i] = complex_d( double(std::rand()) / std::rand(), 0);
         sum += full[i*N+i].real();
         for (int j = i+1; j < N; j++) {
             full[i*N+j] = complex_d( double(std::rand()) / std::rand(), double(std::rand()) / std::rand());
         }
-    }
-    std::cout << "sum: " << sum << std::endl;
-    for (int i = 0; i < N; i++) {
-        full[i*N+i] /= sum;
     }
 
     for (int i = 0; i < N; i++) {
@@ -51,7 +47,7 @@ complex_d full_filler(int i, int j) {
 int main(int argc, char **argv)
 {
     if (argc < 3) {
-        std::cout << "usage: gen_ro_full <filename> <N> [<seed>]\n";
+        std::cout << "usage: gen_H <filename> <N> [<seed>]\n";
         return 0;
     }
 

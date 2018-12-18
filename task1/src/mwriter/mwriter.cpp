@@ -87,6 +87,7 @@ void matrix_d::write_to(const char *filename)
 {
     std::ofstream out(filename, std::ios::binary);
     out.write((char *)(&(this->N)), sizeof(int));
+    out.write((char *)(&(this->N)), sizeof(int));
     out.write((char *)(this->data), this->N * this->N * 2 * sizeof(double));
     out.close();
 }
@@ -98,9 +99,10 @@ void matrix_d::write_diag_to(const char *filename)
         diag[i*2] = this->data[(i*N+i)*2];
         diag[i*2+1] = this->data[(i*N+i)*2+1];
     }
-
+    int tmp = 0;
     std::ofstream out(filename, std::ios::binary);
     out.write((char *)(&(this->N)), sizeof(int));
+    out.write((char *)&tmp, sizeof(int));
     out.write((char *)diag, this->N * 2 * sizeof(double));
     out.close();
 
@@ -201,7 +203,7 @@ void matrix_d::read_diag_from_txt(const char *filename)
 void matrix_d::print()
 {
     std::cout.setf(std::ios::fixed);
-    std::cout << this->N << std::endl;
+    std::cout << this->N << " " << this->N << std::endl;
     for (int i = 0; i < this->N; i++)
     {
         for (int j = 0; j < this->N; j++)
