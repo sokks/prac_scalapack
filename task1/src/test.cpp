@@ -118,15 +118,15 @@ int main(int argc, char **argv) {
 	SType *W1 = diagonal_conversion(W, SSize, deltat, isRoot);
 	*D = *A;
 	(*D).DiagToMat(&SSize, W1);
-	cout << *D << endl << endl; 
-	cout << *A << endl << endl;
+	// cout << *D << endl << endl; 
+	// cout << *A << endl << endl;
 
 	(*A).mul((char *) "N", (char *) "N", D, &tmp);
-	cout<< *tmp << endl << endl;
+	// cout<< *tmp << endl << endl;
 
 	SMatrix *UdT = new SMatrix(SSize, SSize);
 	(*tmp).mul((char *) "N", (char *) "C", A, &UdT);
-	cout<< *UdT << endl << endl;
+	// cout<< *UdT << endl << endl;
 	
 	MPI_File_close(&thefile);
 	
@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
 	}
 	
 	// now A contains Ro
-	cout << *A << endl << endl;
+	// cout << *A << endl << endl;
 	int n = atoi(argv[5]);
 	for (int j = 0; j < n; j++){
 		(*UdT).mul((char *) "C", (char *) "N", A, &tmp);

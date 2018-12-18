@@ -41,18 +41,16 @@ void gen_full(int N) {
 }
 
 complex_d full_filler(int i, int j) {
-    // return full[i*N+j];
+    return full[i*N+j];
     // if ( (abs(i-j) == 1) && (i>0) && (j>0) ) {
     //     return 1;
-    // } else {
-    //     return 0;
+    // } 
+    // if ((i == 2) && (j == 3)) {
+    //     return 1;
     // }
-    if ((i == 2) && (j == 3)) {
-        return 1;
-    }
-    if ((i == 3) && (j == 2)) {
-        return 1;
-    }
+    // if ((i == 3) && (j == 2)) {
+    //     return 1;
+    // }
     return 0;
 }
 

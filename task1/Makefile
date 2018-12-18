@@ -70,7 +70,7 @@ bin/gen_H: src/gen_H.cpp lib/mwriter.a Makefile
 	g++ -std=c++11 -o $@ src/gen_H.cpp lib/mwriter.a
 
 gen_H: bin/gen_H
-	./bin/gen_H data/H2 4 100
+	./bin/gen_H data/H1 8 100
 
 bin/gen_ro_full: src/gen_ro_full.cpp lib/mwriter.a Makefile
 	mkdir -p bin
