@@ -5,9 +5,9 @@
 int N = 0;
 
 double w_c = 1.0;
-double w_a = 1.0;
+double w_a = 10.0;
 double a = 1.0;
-double b = 1.0;
+double b = 100.0;
 
 int fac(int n) {
     int res = 1;
@@ -81,15 +81,17 @@ int get_H_idx(int global_i, int global_j, std::vector<int> H_idxs, std::map<int,
 
 int get_number_of_ones(int n) {
     unsigned int count = 0;
-    for (; n; n <<= 1) {
+    int n_start = n;
+    for (; n; n >>= 1) {
         count += n & 1;
     }
+
     return count;
 }
 
 int get_number_of_ones_odd(int n) {
     unsigned int count = 0;
-    for (n = n << 1; n; n <<= 2) {
+    for (n = n >> 1; n; n >>= 2) {
         count += n & 1;
     }
     return count;
@@ -99,7 +101,7 @@ int get_number_of_ones_odd(int n) {
 // н-р: [00...00101 -> 2] [00...00010 -> 0]
 int get_number_of_ones_even(int n) {
     unsigned int count = 0;
-    for (; n; n <<= 2) {
+    for (; n; n >>= 2) {
         count += n & 1;
     }
     return count;
@@ -126,6 +128,25 @@ std::vector<int> get_H_p_vectors(int p) {
 }
 
 int get_ones_positions(int n, int *pos1, int *pos2) {
+    int nn = n;
+    char was_one = 0;
+    char was_two = 0;
+    for (int i = 0; i < sizeof(int); i++) {
+        int bit = nn & 1;
+        if (bit) {
+            if (!was_one) {
+                *pos1 = i;
+                was_one = 1;
+            } else if (was_one && !was_two) {
+                *pos2 = i;
+                was_two = 1;
+            } else {
+                return -1;
+            }
+        }
+        nn >>= 1;
+    }
+
     return 0;
 }
 
@@ -157,8 +178,7 @@ double get_interaction(int vec1, int vec2) {
     return 0.0;
 }
 
-double **gen_H_p(int p, std::map<int, int> H_sizes) {
-    int sz = H_sizes[p];
+double **gen_H_p(int p, int sz) {
     double **H_p = new double*[sz];
     for (int i = 0; i < sz; i++) {
         H_p[i] = new double[sz];
@@ -197,15 +217,24 @@ double **gen_H_p(int p, std::map<int, int> H_sizes) {
 
 double get_H_p_i_j(int p, int i, int j, std::map<int, double **> H_generated, std::map<int, int> H_sizes) {
     if (H_generated.find(p) == H_generated.end()) {
-        H_generated[p] = gen_H_p(p, H_sizes);
+        H_generated[p] = gen_H_p(p, H_sizes[p]);
     }
     
     return H_generated[p][i][j];
 }
 
+void print_H(double **H, int sz) {
+    for (int i = 0; i < sz; i++) {
+        for (int j = 0; j < sz; j++) {
+            std::cout << H[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 int main() {
-        N     = 4;
-    int E_min = 3;
+        N     = 2;
+    int E_min = 0;
     int E_max = 4;
     int k     = 1;
 
@@ -266,6 +295,27 @@ int main() {
         }
     }
 
+    std::map<int, double**> H_generated;
+
+    for (auto idx: H_idxs) {
+        if (H_generated.find(idx) == H_generated.end()) {
+            std::cout << "generating H with idx " << idx << std::endl;
+            H_generated[idx] = gen_H_p(idx, H_sizes[idx]);
+        }
+
+        std::cout << "H_idx: " << idx << std::endl;
+        print_H(H_generated[idx], H_sizes[idx]);
+    }
+
+
+    for (auto pair: H_generated) {
+        double **to_delete = pair.second;
+        for (int i = 0; i < H_sizes[pair.first]; i++) {
+            delete[] to_delete[i];
+        }
+
+        delete[] to_delete;
+    }
 
     return 0;
 }
