@@ -116,7 +116,7 @@ int power_2_n(int n) {
 }
 
 std::vector<int> get_H_p_vectors(int p) {
-    // TODO optimize < O(n)
+    // TODO optimize < O(n) или сделать мапку с заранее сгенерированными векторами 
     std::vector<int> vecs;
     for (int i = 0; i < power_2_n(2*N); i++) {
         if (get_number_of_ones(i) == p) {
@@ -160,15 +160,15 @@ double get_interaction(int vec1, int vec2) {
     } else if ((pos2 - pos1) > 2) { // индексы единиц слишком далеко друг от друга
         return 0.0;
 
-    } else if ((pos2 - pos1) == 2) {
-        if (pos1 % 2 == 0) {
+    } else if ((pos2 - pos1) == 2) { 
+        if (pos1 % 2 == 0) { // обмен фотонами между полостями
             return a;
         } else {
             return 0.0;
         }
 
     } else if ((pos2 - pos1) == 1) { 
-        if ((pos2 / 2) == (pos1 / 2)) {
+        if ((pos2 / 2) == (pos1 / 2)) { // атом-фотон в одной полости
             return b;
         } else {
             return 0.0;
