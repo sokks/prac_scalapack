@@ -44,7 +44,7 @@ int get_H_idx(int global_i, int global_j, std::vector<int> H_idxs, std::map<int,
     int prev_sum_i = 0;
     for (int i = 0; i < H_idxs.size(); i++) {
         int sz = H_sizes[H_idxs[i]];
-        if (i < prev_sum_i + sz) {
+        if (global_i < prev_sum_i + sz) {
             idx_i = H_idxs[i];
             break;
         }
@@ -54,7 +54,7 @@ int get_H_idx(int global_i, int global_j, std::vector<int> H_idxs, std::map<int,
     int prev_sum_j = 0;
     for (int j = 0; j < H_idxs.size(); j++) {
         int sz = H_sizes[H_idxs[j]];
-        if (j < prev_sum_j + sz) {
+        if (global_j < prev_sum_j + sz) {
             idx_j = H_idxs[j];
             break;
         }
