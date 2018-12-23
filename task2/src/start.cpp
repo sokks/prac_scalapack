@@ -2,6 +2,13 @@
 #include <map>
 #include <vector>
 
+int N = 0;
+
+double w_c = 1.0;
+double w_a = 1.0;
+double a = 1.0;
+double b = 1.0;
+
 int fac(int n) {
     int res = 1;
     for (int i = 1; i <= n; i++) {
@@ -70,14 +77,134 @@ int get_H_idx(int global_i, int global_j, std::vector<int> H_idxs, std::map<int,
     return -1;
 }
 
-double get_H_p_i_j(int p, int i, int j) {
-    // TODO
-    
+
+
+int get_number_of_ones(int n) {
+    unsigned int count = 0;
+    for (; n; n <<= 1) {
+        count += n & 1;
+    }
+    return count;
+}
+
+int get_number_of_ones_odd(int n) {
+    unsigned int count = 0;
+    for (n = n << 1; n; n <<= 2) {
+        count += n & 1;
+    }
+    return count;
+}
+
+// количество единиц на четных местах (если считать с конца с 0) 
+// н-р: [00...00101 -> 2] [00...00010 -> 0]
+int get_number_of_ones_even(int n) {
+    unsigned int count = 0;
+    for (; n; n <<= 2) {
+        count += n & 1;
+    }
+    return count;
+}
+
+int power_2_n(int n) {
+    int res = 1;
+    for (int i = 0; i < n; i++) {
+        res <<= 1;
+    }
+    return res;
+}
+
+std::vector<int> get_H_p_vectors(int p) {
+    // TODO optimize < O(n)
+    std::vector<int> vecs;
+    for (int i = 0; i < power_2_n(2*N); i++) {
+        if (get_number_of_ones(i) == p) {
+            vecs.push_back(i);
+        }
+    }
+
+    return vecs;
+}
+
+int get_ones_positions(int n, int *pos1, int *pos2) {
+    return 0;
+}
+
+double get_interaction(int vec1, int vec2) {
+    int x = vec1^vec2;
+    int pos1, pos2;
+    int res = get_ones_positions(x, &pos1, &pos2);
+    if (res == -1) { // больше двух единиц
+       return 0.0;
+
+    } else if ((pos2 - pos1) > 2) { // индексы единиц слишком далеко друг от друга
+        return 0.0;
+
+    } else if ((pos2 - pos1) == 2) {
+        if (pos1 % 2 == 0) {
+            return a;
+        } else {
+            return 0.0;
+        }
+
+    } else if ((pos2 - pos1) == 1) { 
+        if ((pos2 / 2) == (pos1 / 2)) {
+            return b;
+        } else {
+            return 0.0;
+        }
+    }
+
     return 0.0;
 }
 
+double **gen_H_p(int p, std::map<int, int> H_sizes) {
+    int sz = H_sizes[p];
+    double **H_p = new double*[sz];
+    for (int i = 0; i < sz; i++) {
+        H_p[i] = new double[sz];
+    }
+
+    // fill zeros
+    for (int i = 0; i < sz; i++) {
+        for (int j = 0; j < sz; j++) {
+            H_p[i][j] = 0.0;
+        }
+    }
+    
+    std::vector<int> H_p_vectors = get_H_p_vectors(p);
+
+    for (int i = 0; i < sz; i++) {
+        int vec1 = H_p_vectors[i];
+        int n_of_fotons = get_number_of_ones_even(vec1);
+        int n_of_atoms  = get_number_of_ones_odd(vec1);
+        H_p[i][i] = n_of_atoms * w_a + n_of_fotons * w_c;
+
+        for (int j = i+1; j < sz; j++) {
+            int vec2 = H_p_vectors[j];
+            H_p[i][j] = get_interaction(vec1, vec2);
+        }
+    }
+
+    // отображаем относительно диагонали
+    for (int i = 0; i < sz; i++) {
+        for (int j = i + 1; j < sz; j++) {
+            H_p[j][i] = H_p[i][j];
+        }
+    }
+
+    return H_p;
+}
+
+double get_H_p_i_j(int p, int i, int j, std::map<int, double **> H_generated, std::map<int, int> H_sizes) {
+    if (H_generated.find(p) == H_generated.end()) {
+        H_generated[p] = gen_H_p(p, H_sizes);
+    }
+    
+    return H_generated[p][i][j];
+}
+
 int main() {
-    int N     = 4;
+        N     = 4;
     int E_min = 3;
     int E_max = 4;
     int k     = 1;
