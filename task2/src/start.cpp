@@ -77,9 +77,7 @@ int main(int argc, char **argv) {
     int count, *buf;
 
 
-    MPI_Status status;
-    MPI_Offset filesize;
-    MPI_File wrfile;
+    
 
     SMatrix x(H_size_full, H_size_full);
     x.N = N;
@@ -91,7 +89,12 @@ int main(int argc, char **argv) {
     x.fill(0);
     x.fill_RWA(H_idxs, H_sizes);
 
-    cout<<x;
+    // cout<<x;
+
+    x.Print();
+
+    // char *fileout = "data/gened_H.dat";
+    // x.writef(fileout);
 
     SMatrix::exit();
     return 0;

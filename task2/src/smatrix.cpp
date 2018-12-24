@@ -249,6 +249,75 @@ void SMatrix::readf(MPI_File thefile) {
     return;
 }
 
+void SMatrix::Print() {
+  for(int i = 0; i < nProcRows; ++i) {
+    for(int j = 0; j < nProcCols; ++j) {
+      MPI_Barrier(MPI_COMM_WORLD);
+      if(i*nProcCols + j == rank) {
+        cout<<"coordinates of processes grid:"<<endl;
+        cout<<"("<<myProcRow<<","<<myProcCol<<")"<<endl;
+        for(int x = 0; x < myProcRows; ++x) {
+          for(int y = 0; y < myProcCols; ++y) {
+            cout<< "["<<fixed<<setprecision(2)<<data[x*myProcCols + y]<<"]";
+          }
+          cout<<endl;
+        }
+        MPI_Barrier(MPI_COMM_WORLD);
+      }
+    }
+  }
+  MPI_Barrier(MPI_COMM_WORLD);
+  if(rank == 0)
+    cout<<"--------------------------------"<<endl;
+}
+
+
+void SMatrix::writef(char *fileout) {
+	MPI_Status status;
+    MPI_Offset filesize;
+    MPI_File thefile;
+    MPI_Datatype filetype;
+
+	MPI_File_open(MPI_COMM_WORLD, fileout, MPI_MODE_WRONLY|MPI_MODE_CREATE, MPI_INFO_NULL, &thefile);
+	MPI_File_set_view(thefile, 0, MPI_INT, MPI_INT, "native", MPI_INFO_NULL);
+	
+	if (rank == 0) {
+		// write matrix sizes
+		int buf[] = {nRows, nCols};
+		MPI_File_write(thefile, buf, 2, MPI_INT, &status);
+	}
+
+	SType dd[myProcSize];
+	barrier();
+	for (int i = 0; i < myProcSize; i++) {
+		dd[i] = this->data[i]; // ?
+	}
+	barrier();
+
+	MPI_Datatype newtype1, newtype;
+	MPI_Type_vector(myProcRows, 1, nCols, MPI_DOUBLE, &newtype1);
+	MPI_Type_commit(&newtype1);
+	MPI_Type_hvector(myProcCols, 1, sizeof(SType), newtype1, &newtype);
+	MPI_Type_commit(&newtype);
+
+
+
+	
+
+	// write matrix
+	MPI_File_set_view(thefile, 
+		2*sizeof(int) + (nCols*myProcRowsOffset+myProcColsOffset)*sizeof(SType),
+		MPI_DOUBLE, // e-type
+		newtype,    // file-type
+		"native", MPI_INFO_NULL);
+	MPI_File_write(thefile, data, myProcCols*myProcRows, MPI_DOUBLE, &status);
+
+	MPI_File_close(&thefile);
+    return;
+}
+
+
+
 void SMatrix::wrbuf(SType* buf) {
 	for (int i = 0; i < nRows; i++) {
 			if ((i >= myProcRowsOffset) &&
@@ -277,8 +346,8 @@ void SMatrix::setij(int i, int j, SType val) {
 		(i < myProcRowsOffset + myProcRows) &&
 		(j >= myProcColsOffset) &&
 		(j < myProcColsOffset + myProcCols)){
-		data[(i - myProcRowsOffset) + myProcRows * (j - myProcColsOffset)] = val;
-				}
+			data[(i - myProcRowsOffset) + myProcRows * (j - myProcColsOffset)] = val;
+	}
     return;
 }
 
@@ -600,7 +669,7 @@ void SMatrix::fill_RWA(std::vector<int> H_idxs, std::map<int, int> H_sizes) {
             p = get_H_idx(global_i, global_j, H_idxs, H_sizes, &H_i, &H_j);
             if (p != -1) {
                 // set my_H[my_i][my_i] = get_H_p_i_j(p, H_i, H_j);
-				std::cout << get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes) << std::endl;
+				// std::cout << get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes) << std::endl;
 				setij(my_i, my_j, get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes));
             } else {
                 // set my_H[my_i][my_i] = 0.0;

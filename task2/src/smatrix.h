@@ -61,7 +61,10 @@ public:
 	SMatrix& operator -=(SType value);
 
 	void readf(MPI_File thefile);
+	// void writef(MPI_File thefile);
+	void writef(char *filename);
 	void wrbuf(SType* buf);
+	void Print();
 
 	void setij(int i, int j, SType val);
 	void setij(int i, int j);
