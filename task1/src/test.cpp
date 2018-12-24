@@ -95,8 +95,8 @@ int main(int argc, char **argv) {
 	
 	// read matrix sizes
 	buf = (int *) malloc (2 * sizeof(int));
-	SSize = buf[0]; // считаем матрицу квадратной
 	MPI_File_read(thefile, buf, 2, MPI_INT, &status);
+	SSize = buf[0]; // считаем матрицу квадратной	
 	// create matrix and read separately
 	SMatrix x(buf[0], buf[1]);
 	x.readf(thefile);
