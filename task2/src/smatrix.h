@@ -86,16 +86,18 @@ private:
 	SType *data;
 
 // for task2
+public:
 	int N = 0;
 	double w_c = 1.0;
 	double w_a = 10.0;
 	double a = 1.0;
 	double b = 100.0;
 
+private:
 	std::vector<int> get_H_p_vectors(int p);
 	double get_interaction(int vec1, int vec2);
 	double **gen_H_p(int p, int sz);
-	double get_H_p_i_j(int p, int i, int j, std::map<int, double **> H_generated, std::map<int, int> H_sizes);
+	double get_H_p_i_j(int p, int i, int j, std::map<int, double **>& H_generated, std::map<int, int> H_sizes);
 
 };
 

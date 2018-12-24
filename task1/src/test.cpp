@@ -108,6 +108,7 @@ int main(int argc, char **argv) {
 		};*/
 	//x.set(data);
 	
+	cout << x;
 
 	SMatrix *A,                                 // здесь будут собственные векторы по столбцам
 			*D   = new SMatrix(SSize, SSize),   // здесь будет exp(-i * dT * eigen(H))

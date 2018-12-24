@@ -15,7 +15,8 @@ else
 endif
 
 start: bin/start
-	./bin/start
+	# .bin/start N k E_min E_max a b w_a w_c 
+	./bin/start 2 2 2 3 1 10 100 1000 > data/hello.txt
 
 bin/start: build/start.o lib/smatrix.a Makefile
 	mkdir -p bin

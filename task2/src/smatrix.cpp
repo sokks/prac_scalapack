@@ -277,7 +277,7 @@ void SMatrix::setij(int i, int j, SType val) {
 		(i < myProcRowsOffset + myProcRows) &&
 		(j >= myProcColsOffset) &&
 		(j < myProcColsOffset + myProcCols)){
-		data[(i - myProcRowsOffset) + myProcRows * (j - myProcColsOffset)] = 1;
+		data[(i - myProcRowsOffset) + myProcRows * (j - myProcColsOffset)] = val;
 				}
     return;
 }
@@ -558,10 +558,18 @@ double **SMatrix::gen_H_p(int p, int sz) {
         }
     }
 
+	// std::cout << "H p = " << p << std::endl;
+	// for (int i = 0; i < sz; i++) {
+    //     for (int j = 0; j < sz; j++) {
+    //         std::cout << H_p[i][j] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
+
     return H_p;
 }
 
-double SMatrix::get_H_p_i_j(int p, int i, int j, std::map<int, double **> H_generated, std::map<int, int> H_sizes) {
+double SMatrix::get_H_p_i_j(int p, int i, int j, std::map<int, double **>& H_generated, std::map<int, int> H_sizes) {
     if (H_generated.find(p) == H_generated.end()) {
         H_generated[p] = gen_H_p(p, H_sizes[p]);
     }
@@ -571,6 +579,9 @@ double SMatrix::get_H_p_i_j(int p, int i, int j, std::map<int, double **> H_gene
 
 void SMatrix::fill_RWA(std::vector<int> H_idxs, std::map<int, int> H_sizes) {
     barrier();
+
+	std::cout << myProcRows << " " << myProcCols << " " << myProcRowsOffset << " " << myProcColsOffset << std::endl;
+	// std::cout << "proc hello\n";
 
 	std::map<int, double**> H_generated;
 
@@ -589,6 +600,7 @@ void SMatrix::fill_RWA(std::vector<int> H_idxs, std::map<int, int> H_sizes) {
             p = get_H_idx(global_i, global_j, H_idxs, H_sizes, &H_i, &H_j);
             if (p != -1) {
                 // set my_H[my_i][my_i] = get_H_p_i_j(p, H_i, H_j);
+				std::cout << get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes) << std::endl;
 				setij(my_i, my_j, get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes));
             } else {
                 // set my_H[my_i][my_i] = 0.0;
