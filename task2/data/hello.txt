@@ -5,68 +5,53 @@
 3 4
 4 1
 5
-1 0 
-0 1
-1 4
-2 6
-3 4
-4 1
-5
-3 3 0 0
+5 5 0 0
 global_i = 0 global_j = 0
+1000
 global_i = 0 global_j = 1
+10
 global_i = 0 global_j = 2
-global_i = 1 global_j = 0
-global_i = 1 global_j = 1
-global_i = 1 global_j = 2
-global_i = 2 global_j = 0
-global_i = 2 global_j = 1
-global_i = 2 global_j = 2
-coordinates of processes grid: (0,0)
-[1000.00][10.00][10.00]
-[100.00][1.00][0.00]
-[1000.00][0.00][0.00]
---------------------------------
-1 0 
-0 1
-1 4
-2 6
-3 4
-4 1
-5
-3 2 0 3
+1
 global_i = 0 global_j = 3
+0
 global_i = 0 global_j = 4
+global_i = 1 global_j = 0
+10
+global_i = 1 global_j = 1
+100
+global_i = 1 global_j = 2
+0
 global_i = 1 global_j = 3
+0
 global_i = 1 global_j = 4
+global_i = 2 global_j = 0
+1
+global_i = 2 global_j = 1
+0
+global_i = 2 global_j = 2
+1000
 global_i = 2 global_j = 3
+10
 global_i = 2 global_j = 4
-coordinates of processes grid: (1,0)
-[0.00][0.00]
-[0.00][0.00]
-[10.00][0.00]
-1 0 
-0 1
-1 4
-2 6
-3 4
-4 1
-5
-2 2 3 3
-global_i = 3 global_j = 3
-global_i = 3 global_j = 4
-global_i = 4 global_j = 3
-global_i = 4 global_j = 4
-coordinates of processes grid: (1,1)
-[100.00][0.00]
-[0.00][0.00]
-2 3 3 0
 global_i = 3 global_j = 0
+0
 global_i = 3 global_j = 1
+0
 global_i = 3 global_j = 2
+10
+global_i = 3 global_j = 3
+100
+global_i = 3 global_j = 4
 global_i = 4 global_j = 0
 global_i = 4 global_j = 1
 global_i = 4 global_j = 2
-coordinates of processes grid: (0,1)
-[0.00][0.00][0.00]
-[0.00][0.00][0.00]
+global_i = 4 global_j = 3
+global_i = 4 global_j = 4
+0
+coordinates of processes grid: (0,0)
+[1000.00][10.00][1.00][0.00][0.00]
+[10.00][100.00][0.00][0.00][0.00]
+[1.00][0.00][1000.00][10.00][0.00]
+[0.00][0.00][10.00][100.00][0.00]
+[0.00][0.00][0.00][0.00][0.00]
+--------------------------------

@@ -670,13 +670,13 @@ void SMatrix::fill_RWA(std::vector<int> H_idxs, std::map<int, int> H_sizes) {
             p = get_H_idx(global_i, global_j, H_idxs, H_sizes, &H_i, &H_j);
             if (p != -1) {
                 // set my_H[my_i][my_i] = get_H_p_i_j(p, H_i, H_j);
-				// std::cout << get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes) << std::endl;
+				std::cout << get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes) << std::endl;
 				// setij(my_i, my_j, get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes));
-				data[my_i * nProcCols + my_j] = get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes);
+				data[my_i * myProcCols + my_j] = get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes);
             } else {
                 // set my_H[my_i][my_i] = 0.0;
 				// setij(my_i, my_j, 0.0);
-				data[my_i * nProcCols + my_j] = 0.0;
+				data[my_i * myProcCols + my_j] = 0.0;
             }
         }
     }
