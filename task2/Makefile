@@ -16,7 +16,7 @@ endif
 
 start: bin/start Makefile
 	# .bin/start N k E_min E_max a b w_a w_c 
-	mpiexec -np 1 bin/start 2 1 1 1 1 10 100 1000 > data/hello.txt
+	mpiexec -np 1 bin/start 7 0 1 1 1 10 100 1000 > data/hello.txt
 
 bin/start: build/start.o lib/smatrix.a Makefile
 	mkdir -p bin

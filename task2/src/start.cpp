@@ -20,7 +20,16 @@ int fac(int n) {
 }
 
 int C_n_k(int n, int k) {
-    return fac(n) / (fac(k) * fac(n-k));
+    // return fac(n) / (fac(k) * fac(n-k));
+    if ((k == 0) || (k == n)) {
+        return 1;
+    }
+    int p = std::max(k, n-k);
+    int pp = 1;
+    for (int i = p+1; i <= n; i++) {
+        pp *= i;
+    }
+    return (pp / std::min(k, n-k));
 }
 
 int get_H_size(int H_idx, int N) {

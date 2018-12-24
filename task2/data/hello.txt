@@ -1,11 +1,21 @@
-1 0 
+1 
 0 1
-1 4
-2 6
-3 4
-4 1
-5
-5 5 0 0
+1 14
+2 91
+3 728
+4 6006
+5 48048
+6 360360
+7 2471040
+8 360360
+9 48048
+10 6006
+11 728
+12 91
+13 14
+14 1
+14
+14 14 0 0
 global_i = 0 global_j = 0
 1000
 global_i = 0 global_j = 1
@@ -15,6 +25,25 @@ global_i = 0 global_j = 2
 global_i = 0 global_j = 3
 0
 global_i = 0 global_j = 4
+0
+global_i = 0 global_j = 5
+0
+global_i = 0 global_j = 6
+0
+global_i = 0 global_j = 7
+0
+global_i = 0 global_j = 8
+0
+global_i = 0 global_j = 9
+0
+global_i = 0 global_j = 10
+0
+global_i = 0 global_j = 11
+0
+global_i = 0 global_j = 12
+0
+global_i = 0 global_j = 13
+0
 global_i = 1 global_j = 0
 10
 global_i = 1 global_j = 1
@@ -24,6 +53,25 @@ global_i = 1 global_j = 2
 global_i = 1 global_j = 3
 0
 global_i = 1 global_j = 4
+0
+global_i = 1 global_j = 5
+0
+global_i = 1 global_j = 6
+0
+global_i = 1 global_j = 7
+0
+global_i = 1 global_j = 8
+0
+global_i = 1 global_j = 9
+0
+global_i = 1 global_j = 10
+0
+global_i = 1 global_j = 11
+0
+global_i = 1 global_j = 12
+0
+global_i = 1 global_j = 13
+0
 global_i = 2 global_j = 0
 1
 global_i = 2 global_j = 1
@@ -33,6 +81,25 @@ global_i = 2 global_j = 2
 global_i = 2 global_j = 3
 10
 global_i = 2 global_j = 4
+0
+global_i = 2 global_j = 5
+0
+global_i = 2 global_j = 6
+0
+global_i = 2 global_j = 7
+0
+global_i = 2 global_j = 8
+0
+global_i = 2 global_j = 9
+0
+global_i = 2 global_j = 10
+0
+global_i = 2 global_j = 11
+0
+global_i = 2 global_j = 12
+0
+global_i = 2 global_j = 13
+0
 global_i = 3 global_j = 0
 0
 global_i = 3 global_j = 1
@@ -42,16 +109,318 @@ global_i = 3 global_j = 2
 global_i = 3 global_j = 3
 100
 global_i = 3 global_j = 4
-global_i = 4 global_j = 0
-global_i = 4 global_j = 1
-global_i = 4 global_j = 2
-global_i = 4 global_j = 3
-global_i = 4 global_j = 4
 0
+global_i = 3 global_j = 5
+0
+global_i = 3 global_j = 6
+0
+global_i = 3 global_j = 7
+0
+global_i = 3 global_j = 8
+0
+global_i = 3 global_j = 9
+0
+global_i = 3 global_j = 10
+0
+global_i = 3 global_j = 11
+0
+global_i = 3 global_j = 12
+0
+global_i = 3 global_j = 13
+0
+global_i = 4 global_j = 0
+0
+global_i = 4 global_j = 1
+0
+global_i = 4 global_j = 2
+0
+global_i = 4 global_j = 3
+0
+global_i = 4 global_j = 4
+1000
+global_i = 4 global_j = 5
+0
+global_i = 4 global_j = 6
+0
+global_i = 4 global_j = 7
+0
+global_i = 4 global_j = 8
+0
+global_i = 4 global_j = 9
+0
+global_i = 4 global_j = 10
+0
+global_i = 4 global_j = 11
+0
+global_i = 4 global_j = 12
+0
+global_i = 4 global_j = 13
+0
+global_i = 5 global_j = 0
+0
+global_i = 5 global_j = 1
+0
+global_i = 5 global_j = 2
+0
+global_i = 5 global_j = 3
+0
+global_i = 5 global_j = 4
+0
+global_i = 5 global_j = 5
+100
+global_i = 5 global_j = 6
+0
+global_i = 5 global_j = 7
+0
+global_i = 5 global_j = 8
+0
+global_i = 5 global_j = 9
+0
+global_i = 5 global_j = 10
+0
+global_i = 5 global_j = 11
+0
+global_i = 5 global_j = 12
+0
+global_i = 5 global_j = 13
+0
+global_i = 6 global_j = 0
+0
+global_i = 6 global_j = 1
+0
+global_i = 6 global_j = 2
+0
+global_i = 6 global_j = 3
+0
+global_i = 6 global_j = 4
+0
+global_i = 6 global_j = 5
+0
+global_i = 6 global_j = 6
+1000
+global_i = 6 global_j = 7
+0
+global_i = 6 global_j = 8
+0
+global_i = 6 global_j = 9
+0
+global_i = 6 global_j = 10
+0
+global_i = 6 global_j = 11
+0
+global_i = 6 global_j = 12
+0
+global_i = 6 global_j = 13
+0
+global_i = 7 global_j = 0
+0
+global_i = 7 global_j = 1
+0
+global_i = 7 global_j = 2
+0
+global_i = 7 global_j = 3
+0
+global_i = 7 global_j = 4
+0
+global_i = 7 global_j = 5
+0
+global_i = 7 global_j = 6
+0
+global_i = 7 global_j = 7
+100
+global_i = 7 global_j = 8
+0
+global_i = 7 global_j = 9
+0
+global_i = 7 global_j = 10
+0
+global_i = 7 global_j = 11
+0
+global_i = 7 global_j = 12
+0
+global_i = 7 global_j = 13
+0
+global_i = 8 global_j = 0
+0
+global_i = 8 global_j = 1
+0
+global_i = 8 global_j = 2
+0
+global_i = 8 global_j = 3
+0
+global_i = 8 global_j = 4
+0
+global_i = 8 global_j = 5
+0
+global_i = 8 global_j = 6
+0
+global_i = 8 global_j = 7
+0
+global_i = 8 global_j = 8
+1000
+global_i = 8 global_j = 9
+0
+global_i = 8 global_j = 10
+0
+global_i = 8 global_j = 11
+0
+global_i = 8 global_j = 12
+0
+global_i = 8 global_j = 13
+0
+global_i = 9 global_j = 0
+0
+global_i = 9 global_j = 1
+0
+global_i = 9 global_j = 2
+0
+global_i = 9 global_j = 3
+0
+global_i = 9 global_j = 4
+0
+global_i = 9 global_j = 5
+0
+global_i = 9 global_j = 6
+0
+global_i = 9 global_j = 7
+0
+global_i = 9 global_j = 8
+0
+global_i = 9 global_j = 9
+100
+global_i = 9 global_j = 10
+0
+global_i = 9 global_j = 11
+0
+global_i = 9 global_j = 12
+0
+global_i = 9 global_j = 13
+0
+global_i = 10 global_j = 0
+0
+global_i = 10 global_j = 1
+0
+global_i = 10 global_j = 2
+0
+global_i = 10 global_j = 3
+0
+global_i = 10 global_j = 4
+0
+global_i = 10 global_j = 5
+0
+global_i = 10 global_j = 6
+0
+global_i = 10 global_j = 7
+0
+global_i = 10 global_j = 8
+0
+global_i = 10 global_j = 9
+0
+global_i = 10 global_j = 10
+1000
+global_i = 10 global_j = 11
+0
+global_i = 10 global_j = 12
+0
+global_i = 10 global_j = 13
+0
+global_i = 11 global_j = 0
+0
+global_i = 11 global_j = 1
+0
+global_i = 11 global_j = 2
+0
+global_i = 11 global_j = 3
+0
+global_i = 11 global_j = 4
+0
+global_i = 11 global_j = 5
+0
+global_i = 11 global_j = 6
+0
+global_i = 11 global_j = 7
+0
+global_i = 11 global_j = 8
+0
+global_i = 11 global_j = 9
+0
+global_i = 11 global_j = 10
+0
+global_i = 11 global_j = 11
+100
+global_i = 11 global_j = 12
+0
+global_i = 11 global_j = 13
+0
+global_i = 12 global_j = 0
+0
+global_i = 12 global_j = 1
+0
+global_i = 12 global_j = 2
+0
+global_i = 12 global_j = 3
+0
+global_i = 12 global_j = 4
+0
+global_i = 12 global_j = 5
+0
+global_i = 12 global_j = 6
+0
+global_i = 12 global_j = 7
+0
+global_i = 12 global_j = 8
+0
+global_i = 12 global_j = 9
+0
+global_i = 12 global_j = 10
+0
+global_i = 12 global_j = 11
+0
+global_i = 12 global_j = 12
+1000
+global_i = 12 global_j = 13
+0
+global_i = 13 global_j = 0
+0
+global_i = 13 global_j = 1
+0
+global_i = 13 global_j = 2
+0
+global_i = 13 global_j = 3
+0
+global_i = 13 global_j = 4
+0
+global_i = 13 global_j = 5
+0
+global_i = 13 global_j = 6
+0
+global_i = 13 global_j = 7
+0
+global_i = 13 global_j = 8
+0
+global_i = 13 global_j = 9
+0
+global_i = 13 global_j = 10
+0
+global_i = 13 global_j = 11
+0
+global_i = 13 global_j = 12
+0
+global_i = 13 global_j = 13
+100
 coordinates of processes grid: (0,0)
-[1000.00][10.00][1.00][0.00][0.00]
-[10.00][100.00][0.00][0.00][0.00]
-[1.00][0.00][1000.00][10.00][0.00]
-[0.00][0.00][10.00][100.00][0.00]
-[0.00][0.00][0.00][0.00][0.00]
+[1000.00][10.00][1.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[10.00][100.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[1.00][0.00][1000.00][10.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][10.00][100.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][1000.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][100.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][1000.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][100.00][0.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][1000.00][0.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][100.00][0.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][1000.00][0.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][100.00][0.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][1000.00][0.00]
+[0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][0.00][100.00]
 --------------------------------
