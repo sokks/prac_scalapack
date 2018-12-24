@@ -254,8 +254,7 @@ void SMatrix::Print() {
     for(int j = 0; j < nProcCols; ++j) {
       MPI_Barrier(MPI_COMM_WORLD);
       if(i*nProcCols + j == rank) {
-        cout<<"coordinates of processes grid:"<<endl;
-        cout<<"("<<myProcRow<<","<<myProcCol<<")"<<endl;
+        cout<<"coordinates of processes grid: "<<"("<<i<<","<<j<<")"<<endl;
         for(int x = 0; x < myProcRows; ++x) {
           for(int y = 0; y < myProcCols; ++y) {
             cout<< "["<<fixed<<setprecision(2)<<data[x*myProcCols + y]<<"]";
@@ -666,14 +665,18 @@ void SMatrix::fill_RWA(std::vector<int> H_idxs, std::map<int, int> H_sizes) {
         for (int my_j = 0; my_j < myProcCols; my_j++) {
             global_j = myProcColsOffset + my_j;
 
+			std::cout << "global_i = " << global_i << " global_j = " << global_j << std::endl;
+
             p = get_H_idx(global_i, global_j, H_idxs, H_sizes, &H_i, &H_j);
             if (p != -1) {
                 // set my_H[my_i][my_i] = get_H_p_i_j(p, H_i, H_j);
 				// std::cout << get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes) << std::endl;
-				setij(my_i, my_j, get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes));
+				// setij(my_i, my_j, get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes));
+				data[my_i * nProcCols + my_j] = get_H_p_i_j(p, H_i, H_j, H_generated, H_sizes);
             } else {
                 // set my_H[my_i][my_i] = 0.0;
-				setij(my_i, my_j, 0.0);
+				// setij(my_i, my_j, 0.0);
+				data[my_i * nProcCols + my_j] = 0.0;
             }
         }
     }

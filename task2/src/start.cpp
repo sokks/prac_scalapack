@@ -74,10 +74,6 @@ int main(int argc, char **argv) {
     std::cout << H_size_full << std::endl;
 
     bool isRoot = SMatrix::init(0, 0, 2);
-    int count, *buf;
-
-
-    
 
     SMatrix x(H_size_full, H_size_full);
     x.N = N;
